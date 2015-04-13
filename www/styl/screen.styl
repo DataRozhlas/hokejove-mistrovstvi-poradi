@@ -17,9 +17,21 @@
       font-weight 700
       font-size 16px
       font-family Oswald, sans-serif
-
+  .medal-bands
+    width 100%
+    margin-top -11px
+    div
+      height 53px
+      width 100%
+      &:first-child
+        background lighten(gold, 70%)
+      &:nth-child(2)
+        background lighten(silver, 70%)
+      &:nth-child(3)
+        background lighten(#CD7F32, 70%)
   .flags
   .interaction-pane
+  .medal-bands
   svg
     position absolute
     top 35px

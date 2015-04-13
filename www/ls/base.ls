@@ -23,6 +23,9 @@ container.append \div .attr \class \years
     ..html -> it
     ..style \left -> "#{x it}px"
 
+container.append \div .attr \class \medal-bands
+  ..selectAll \div .data [1 to 3] .enter!append \div
+
 svg = container.append \svg
   ..attr {width: width + 25, height}
 path = d3.svg.line!
