@@ -1,7 +1,6 @@
 data = ig.getData!
 container = d3.select ig.containers.base
 cols = data.0.years.length
-console.log data
 rows = 17
 cellSize = 50_px
 width = cols * cellSize
@@ -19,13 +18,16 @@ getScaleFactor = (code) ->
   | "cze" => 1.5
   | otherwise => 1
 
+
 svg = container.append \svg
   ..attr {width: width + 25, height}
 path = d3.svg.line!
   ..x -> "#{16 + x it.year}"
   ..y -> "#{16 + y it.rank}"
-paths = svg.selectAll \path .data data .enter!append \path
-  ..attr \d -> path it.validYears
+paths = svg.selectAll \g .data data .enter!append \g
+  ..attr \class \nation
+  ..selectAll \path .data (.contiguousYears) .enter!append \path
+    ..attr \d -> path it
 
 flags = container.append \div
   ..attr \class \flags
@@ -39,3 +41,6 @@ flags.selectAll \.nation .data data .enter!append \div
     ..append \div
       ..attr \class -> "img #{it.code}"
       ..style \background-image -> "url('../data/flags/#{it.code}.svg')"
+
+container.append \div
+  ..attr \class \interaction-pane
