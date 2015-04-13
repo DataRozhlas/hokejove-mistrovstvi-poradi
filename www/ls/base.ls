@@ -41,7 +41,7 @@ nationFlags = flags.selectAll \.nation .data data .enter!append \div
     ..style \left -> "#{x it.year}px"
     ..append \div
       ..attr \class -> "img #{it.code}"
-      ..style \background-image -> "url('../data/flags/#{it.code}.svg')"
+      ..style \background-image -> "url('../data/flags-png/Image-#{it.code}.png')"
 
 container.append \div
   ..attr \class \interaction-pane
