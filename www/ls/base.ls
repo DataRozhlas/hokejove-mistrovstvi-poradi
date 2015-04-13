@@ -24,7 +24,8 @@ svg = container.append \svg
 path = d3.svg.line!
   ..x -> "#{16 + x it.year}"
   ..y -> "#{16 + y it.rank}"
-paths = svg.selectAll \g .data data .enter!append \g
+
+nationPaths = svg.selectAll \g .data data .enter!append \g
   ..attr \class \nation
   ..selectAll \path .data (.contiguousYears) .enter!append \path
     ..attr \d -> path it
@@ -32,9 +33,9 @@ paths = svg.selectAll \g .data data .enter!append \g
 flags = container.append \div
   ..attr \class \flags
 
-flags.selectAll \.nation .data data .enter!append \div
+nationFlags = flags.selectAll \.nation .data data .enter!append \div
   ..attr \class \nation
-  ..selectAll \g.rank .data (.validYears) .enter!append \div
+  ..selectAll \div.rank .data (.validYears) .enter!append \div
     ..attr \class \rank
     ..style \top -> "#{y it.rank}px"
     ..style \left -> "#{x it.year}px"
@@ -44,3 +45,22 @@ flags.selectAll \.nation .data data .enter!append \div
 
 container.append \div
   ..attr \class \interaction-pane
+  ..selectAll \div.nation .data data .enter!append \div
+    ..attr \class \nation
+    ..selectAll \div.point .data (.validYears) .enter!append \div
+      ..attr \class \year
+      ..style \top -> "#{y it.rank}px"
+      ..style \left -> "#{x it.year}px"
+      ..on \mouseover -> highlightNation it.code
+      ..on \touchstart -> highlightNation it.code
+      ..on \mouseout -> downlightNation!
+
+highlightNation = (code) ->
+  [svg, flags].forEach -> it.classed \active yes
+  [nationPaths, nationFlags].forEach ->
+    it.classed \active (.code == code)
+
+downlightNation = ->
+  [svg, flags].forEach -> it.classed \active no
+  [nationPaths, nationFlags].forEach ->
+    it.classed \active no
