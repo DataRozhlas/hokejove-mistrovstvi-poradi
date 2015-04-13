@@ -18,6 +18,10 @@ getScaleFactor = (code) ->
   | "cze" => 1.5
   | otherwise => 1
 
+container.append \div .attr \class \years
+  ..selectAll \span .data [1993 to 2014] .enter!append \span
+    ..html -> it
+    ..style \left -> "#{x it}px"
 
 svg = container.append \svg
   ..attr {width: width + 25, height}
@@ -64,3 +68,4 @@ downlightNation = ->
   [svg, flags].forEach -> it.classed \active no
   [nationPaths, nationFlags].forEach ->
     it.classed \active no
+
