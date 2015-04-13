@@ -4,6 +4,6 @@ ig.getData = ->
       continue if field == 'země'
       rank = (parseInt value, 10) || null
       year = parseInt field, 10
-      {year, rank, code: row['země']}
+      {year, rank, code: row['země'].toLowerCase!}
     validYears = years.filter (.year)
     {code: row['země'], years, validYears}

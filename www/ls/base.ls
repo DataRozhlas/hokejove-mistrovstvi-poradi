@@ -16,12 +16,23 @@ x = d3.scale.linear!
 
 svg = container.append \svg
   ..attr {width, height}
+  ..append \defs
+    ..append \clipPath
+      ..attr \id \round
+      ..append \circle
+        ..attr {r: cellSize / 2, cx: cellSize / 2, cy: cellSize / 2}
 
-svg.selectAll \g.nation .data data .enter!append \g
+getScaleFactor = (code) ->
+  switch code
+  | "cze" => 1.5
+  | otherwise => 1
+
+container.selectAll \.nation .data data .enter!append \div
   ..attr \class \nation
-  ..selectAll \g.rank .data (.validYears) .enter!append \g
-    ..attr \transform -> "translate(#{x it.year}, #{y it.rank})"
-    ..append \image
-      ..attr \xlink:href -> "../data/flags/#{it.code.toLowerCase!}.svg"
-      ..attr \width cellSize
-      ..attr \height cellSize
+  ..selectAll \g.rank .data (.validYears) .enter!append \div
+    ..attr \class \rank
+    ..style \top -> "#{y it.rank}px"
+    ..style \left -> "#{x it.year}px"
+    ..append \div
+      ..attr \class -> "img #{it.code}"
+      ..style \background-image -> "url('../data/flags/#{it.code}.svg')"
