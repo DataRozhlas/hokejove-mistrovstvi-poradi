@@ -14,20 +14,23 @@ x = d3.scale.linear!
   ..domain [1993 2014]
   ..range [0 width]
 
-svg = container.append \svg
-  ..attr {width, height}
-  ..append \defs
-    ..append \clipPath
-      ..attr \id \round
-      ..append \circle
-        ..attr {r: cellSize / 2, cx: cellSize / 2, cy: cellSize / 2}
-
 getScaleFactor = (code) ->
   switch code
   | "cze" => 1.5
   | otherwise => 1
 
-container.selectAll \.nation .data data .enter!append \div
+svg = container.append \svg
+  ..attr {width: width + 25, height}
+path = d3.svg.line!
+  ..x -> "#{16 + x it.year}"
+  ..y -> "#{16 + y it.rank}"
+paths = svg.selectAll \path .data data .enter!append \path
+  ..attr \d -> path it.validYears
+
+flags = container.append \div
+  ..attr \class \flags
+
+flags.selectAll \.nation .data data .enter!append \div
   ..attr \class \nation
   ..selectAll \g.rank .data (.validYears) .enter!append \div
     ..attr \class \rank
