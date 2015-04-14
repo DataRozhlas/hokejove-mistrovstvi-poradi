@@ -16,11 +16,6 @@ x = d3.scale.linear!
   ..domain [startYear, endYear]
   ..range [0 width]
 
-getScaleFactor = (code) ->
-  switch code
-  | "cze" => 1.5
-  | otherwise => 1
-
 container.append \div .attr \class \years
   ..selectAll \span .data [startYear to endYear] .enter!append \span
     ..html -> it
