@@ -17,7 +17,16 @@
       font-weight 700
       font-size 16px
       font-family Oswald, sans-serif
+  .flags
+  .interaction-pane
   .medal-bands
+  svg
+    position absolute
+    top 35px
+    left 0px
+
+  .medal-bands
+    position fixed
     width 100%
     margin-top -7px
     div
@@ -29,13 +38,6 @@
         background lighten(silver, 70%)
       &:nth-child(3)
         background lighten(#CD7F32, 70%)
-  .flags
-  .interaction-pane
-  .medal-bands
-  svg
-    position absolute
-    top 35px
-    left 0px
   svg
     path
       fill none
@@ -48,6 +50,7 @@
     g.active
       opacity 0.3
   .flags
+    z-index 2
     .nation
       transition opacity 0.2s
       .rank
@@ -71,9 +74,29 @@
     .nation.active
       opacity 1
   .interaction-pane
+    z-index 3
     div
       position absolute
       width 46px
       height 42px
       margin-left -5px
       margin-top -5px
+  .navbutton
+    z-index 1
+    position fixed
+    opacity 1
+    transition opacity 0.8s
+    &:hover
+      opacity 0.6
+    &.disabled
+      opacity 0
+      pointer-events none
+      cursor default
+  .backbutton
+    triangle(50px, 100px, 'left', ColorRed)
+    top 540px
+    left 30px
+  .nextbutton
+    triangle(50px, 100px, 'right', ColorRed)
+    top 540px
+    right 30px

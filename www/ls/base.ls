@@ -83,3 +83,4 @@ downlightNation = ->
   [nationPaths, nationFlags].forEach ->
     it.classed \active no
 
+new ig.Scroller container, width + 40
