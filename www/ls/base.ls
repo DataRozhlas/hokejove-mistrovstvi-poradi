@@ -6,12 +6,14 @@ cellWidth = 43_px
 cellHeight = 38_px
 width = cols * cellWidth
 height = rows * cellHeight
+startYear = 1993
+endYear = 2014
 
 y = d3.scale.linear!
   ..domain [1 rows]
   ..range [0 height]
 x = d3.scale.linear!
-  ..domain [1993 2014]
+  ..domain [startYear, endYear]
   ..range [0 width]
 
 getScaleFactor = (code) ->
@@ -20,7 +22,7 @@ getScaleFactor = (code) ->
   | otherwise => 1
 
 container.append \div .attr \class \years
-  ..selectAll \span .data [1993 to 2014] .enter!append \span
+  ..selectAll \span .data [startYear to endYear] .enter!append \span
     ..html -> it
     ..style \left -> "#{x it}px"
 
