@@ -6,6 +6,7 @@ class ig.Scroller
     @linkBack = container.append \a
       ..attr \class "navbutton backbutton"
       ..attr \href \#
+      ..html "Historie"
       ..on \click ~>
         targetX = currentPosition! - document.body.clientWidth
         d3.transition!
@@ -16,6 +17,7 @@ class ig.Scroller
     @linkNext = container.append \a
       ..attr \class "navbutton nextbutton disabled"
       ..attr \href \#
+      ..html "Současnost"
       ..on \click ~>
         targetX = currentPosition! + document.body.clientWidth
         d3.transition!
