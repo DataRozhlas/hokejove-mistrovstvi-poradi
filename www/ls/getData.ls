@@ -2,12 +2,20 @@ ig.getData = ->
   d3.tsv.parse ig.data.vitezove, (row) ->
     currentContiguousYear = []
     contiguousYears = []
-    row['země'] .= toLowerCase!
+    country = {
+      code: row['země'].toLowerCase!
+      first: 0
+      second: 0
+      third: 0
+    }
     years = for field, value of row
       continue if field == 'země'
       rank = (parseInt value, 10) || null
       year = parseInt field, 10
-      d = {year, rank, code: row['země']}
+      d = {year, rank, country}
+      if rank == 1 => country.first++
+      if rank == 2 => country.second++
+      if rank == 3 => country.third++
       if rank
         currentContiguousYear.push d
       else
@@ -18,4 +26,4 @@ ig.getData = ->
     if currentContiguousYear.length > 1
       contiguousYears.push currentContiguousYear
     validYears = years.filter (.rank)
-    {code: row['země'], years, validYears, contiguousYears}
+    {country, years, validYears, contiguousYears}

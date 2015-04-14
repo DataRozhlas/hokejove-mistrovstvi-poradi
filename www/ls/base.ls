@@ -55,8 +55,11 @@ nationFlags = flags.selectAll \.nation .data data .enter!append \div
     ..style \top -> "#{y it.rank}px"
     ..style \left -> "#{x it.year}px"
     ..append \div
-      ..attr \class -> "img #{it.code}"
-      ..style \background-image -> "url('../data/flags-png/Image-#{it.code}.png')"
+      ..attr \class -> "img #{it.country.code}"
+      ..style \background-image -> "url('../data/flags-png/Image-#{it.country.code}.png')"
+
+graphTipContainer = container.append \div
+  ..attr \graph-tip-container
 
 container.append \div
   ..attr \class \interaction-pane
@@ -66,18 +69,24 @@ container.append \div
       ..attr \class \year
       ..style \top -> "#{y it.rank}px"
       ..style \left -> "#{x it.year}px"
-      ..on \mouseover -> highlightNation it.code
-      ..on \touchstart -> highlightNation it.code
+      ..on \mouseover -> highlightCountry it.country, it
+      ..on \touchstart -> highlightCountry it.country, it
       ..on \mouseout -> downlightNation!
+graphTip = new ig.GraphTip graphTipContainer
 
-highlightNation = (code) ->
+highlightCountry = (country, {rank, year}) ->
+  [xCoord, yCoord] = [(x year) + 13, (y rank)+72]
+  graphTip.display xCoord, yCoord, "<b>#{ig.nations[country.code]}</b>
+    <span class='medals'><span>#{country.first}</span><span>#{country.second}</span><span>#{country.third}</span></span>"
   [svg, flags].forEach -> it.classed \active yes
   [nationPaths, nationFlags].forEach ->
-    it.classed \active (.code == code)
+    it.classed \active (.country == country)
 
 downlightNation = ->
+  graphTip.hide!
   [svg, flags].forEach -> it.classed \active no
   [nationPaths, nationFlags].forEach ->
     it.classed \active no
+
 
 new ig.Scroller container, width + 40

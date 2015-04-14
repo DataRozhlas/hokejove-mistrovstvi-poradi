@@ -4,11 +4,12 @@
 
 .ig
   @import basics
+  @import GraphTip
 .ig
   .years
     position absolute
     left -9px
-    top 3px
+    top 40px
     span
       display block
       width 45px
@@ -22,7 +23,7 @@
   .medal-bands
   svg
     position absolute
-    top 35px
+    top 75px
     left 0px
 
   .medal-bands
@@ -82,7 +83,7 @@
       margin-left -5px
       margin-top -5px
   .navbutton
-    top 647px
+    top 685px
     z-index 1
     position fixed
     font-family Oswald, sans-serif
@@ -118,3 +119,31 @@
     &:before
       right 0px
       triangle(15px, 27px, 'right', ColorRed)
+  .graph-tip
+    .contnet
+      min-height none
+    .medals
+      display block
+      float right
+      span
+        display block
+        float left
+        padding-left 15px
+        padding-right 10px
+        position relative
+        &:last-child
+          padding-right 0px
+        &:before
+          content " "
+          position absolute
+          top 4px
+          left 0px
+          width 10px
+          height 10px
+          border-radius 50%
+        &:first-child:before
+          background gold
+        &:nth-child(2):before
+          background silver
+        &:nth-child(3):before
+          background #CD7F32
