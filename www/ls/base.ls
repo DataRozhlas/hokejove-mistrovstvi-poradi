@@ -35,7 +35,17 @@ path = d3.svg.line!
 nationPaths = svg.selectAll \g .data data .enter!append \g
   ..attr \class \nation
   ..selectAll \path .data (.contiguousYears) .enter!append \path
-    ..attr \d -> path it
+    ..attr \d (contiguousYear) ->
+      o = []
+      indices = contiguousYear.length - 1
+      o.push contiguousYear[0]
+      for {year, rank}, index in contiguousYear
+        if index != 0
+          o.push {year: year - 0.38, rank}
+        if index != indices
+          o.push {year: year + 0.38, rank}
+      o.push contiguousYear[*-1]
+      path o
 
 flags = container.append \div
   ..attr \class \flags
