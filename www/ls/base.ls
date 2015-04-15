@@ -6,7 +6,7 @@ cellWidth = 43_px
 cellHeight = 38_px
 width = cols * cellWidth
 height = rows * cellHeight
-startYear = 1993
+startYear = 1920
 endYear = 2014
 
 y = d3.scale.linear!

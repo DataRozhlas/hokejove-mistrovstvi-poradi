@@ -19,9 +19,9 @@ class ig.GraphTip
     if left < 0
       offset = left
       left = 0
-    if left + width > window.innerWidth
-      offset = left + width - window.innerWidth
-      left = window.innerWidth - width
+    # if left + width > window.innerWidth
+    #   offset = left + width - window.innerWidth
+    #   left = window.innerWidth - width
     top = yPosition - height
     @element.classed \out top < 0 or left < 0
     top = 0 if top < 0
