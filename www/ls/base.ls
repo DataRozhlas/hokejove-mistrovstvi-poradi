@@ -2,8 +2,8 @@ data = ig.getData!
 container = d3.select ig.containers.base
 cols = data.0.years.length
 rows = 17
-cellWidth = 43_px
-cellHeight = 38_px
+cellWidth = 44_px
+cellHeight = 34_px
 width = cols * cellWidth
 height = rows * cellHeight
 startYear = 1920
@@ -27,8 +27,8 @@ container.append \div .attr \class \medal-bands
 svg = container.append \svg
   ..attr {width: width + 25, height}
 path = d3.svg.line!
-  ..x -> "#{13 + x it.year}"
-  ..y -> "#{13 + y it.rank}"
+  ..x -> "#{10 + x it.year}"
+  ..y -> "#{10 + y it.rank}"
 
 nationPaths = svg.selectAll \g .data data .enter!append \g
   ..attr \class \nation
