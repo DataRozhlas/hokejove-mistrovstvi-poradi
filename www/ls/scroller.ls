@@ -12,8 +12,6 @@ class ig.Scroller
         d3.transition!
           .duration 800
           .tween "scroll" @scrollTween targetX
-        @linkBack.classed \disabled targetX <= 0
-        @linkNext.classed \disabled no
     @linkNext = container.append \a
       ..attr \class "navbutton nextbutton disabled"
       ..attr \href \#
@@ -23,8 +21,10 @@ class ig.Scroller
         d3.transition!
           .duration 800
           .tween "scroll" @scrollTween targetX
-        @linkBack.classed \disabled no
-        @linkNext.classed \disabled targetX + document.body.clientWidth >= @width
+    window.addEventListener "scroll" ~>
+      x = currentPosition!
+      @linkNext.classed \disabled x + document.body.clientWidth >= @width
+      @linkBack.classed \disabled x == 0
 
 
   scrollTween: (targetX) ->
