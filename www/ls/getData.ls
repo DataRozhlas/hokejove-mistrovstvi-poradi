@@ -12,7 +12,8 @@ ig.getData = ->
       continue if field == 'země'
       rank = (parseInt value, 10) || null
       year = parseInt field, 10
-      d = {year, rank, country}
+      poradatel = ig.poradatelstvi[year] == country.code
+      d = {year, rank, country, poradatel}
       if rank == 1 => country.first++
       if rank == 2 => country.second++
       if rank == 3 => country.third++

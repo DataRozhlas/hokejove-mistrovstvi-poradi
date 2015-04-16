@@ -52,6 +52,7 @@ nationFlags = flags.selectAll \.nation .data data .enter!append \div
   ..attr \class \nation
   ..selectAll \div.rank .data (.validYears) .enter!append \div
     ..attr \class \rank
+    ..classed \poradatel (.poradatel)
     ..style \top -> "#{y it.rank}px"
     ..style \left -> "#{x it.year}px"
     ..append \div
@@ -74,10 +75,13 @@ container.append \div
       ..on \mouseout -> downlightNation!
 graphTip = new ig.GraphTip graphTipContainer
 
-highlightCountry = (country, {rank, year}) ->
-  [xCoord, yCoord] = [(x year) + 13, (y rank)+72]
-  graphTip.display xCoord, yCoord, "<b>#{ig.nations[country.code]}</b>
+highlightCountry = (country, {rank, year, poradatel}) ->
+  [xCoord, yCoord] = [(x year) + 11, (y rank)+69]
+  txt = "<b>#{ig.nations[country.code]}</b>
     <span class='medals'><span>#{country.first}</span><span>#{country.second}</span><span>#{country.third}</span></span>"
+  if poradatel
+    txt += "<br>pořadatelská země"
+  graphTip.display xCoord, yCoord, txt
   [svg, flags].forEach -> it.classed \active yes
   [nationPaths, nationFlags].forEach ->
     it.classed \active (.country == country)
