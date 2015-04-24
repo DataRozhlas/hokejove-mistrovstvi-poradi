@@ -1,13 +1,15 @@
 class ig.Scroller
   (@container, @width) ->
     width = width + 40
-    document.body.scrollLeft = width - document.body.clientWidth
+    window.scrollTo width - document.body.clientWidth, 0
+
     windowWidth = document.body.clientWidth
     @linkBack = container.append \a
       ..attr \class "navbutton backbutton"
       ..attr \href \#
       ..html "Historie"
       ..on \click ~>
+        d3.event.preventDefault!
         targetX = currentPosition! - document.body.clientWidth
         d3.transition!
           .duration 800
@@ -17,6 +19,7 @@ class ig.Scroller
       ..attr \href \#
       ..html "Současnost"
       ..on \click ~>
+        d3.event.preventDefault!
         targetX = currentPosition! + document.body.clientWidth
         d3.transition!
           .duration 800
